@@ -1,13 +1,13 @@
 import numpy as numpy
 import cv2
 
-img= cv2.imread('/media/glenja/New Volume/opencv/images/4.jpg',-1)
+img= cv2.imread('/media/glenja/New Volume/opencv/images/contour.jpg',-1)
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-blur = cv2.GaussianBlur(gray, (5, 5), 0)
-(t, binary) = cv2.threshold(blur, 127, 255, cv2.THRESH_BINARY)
+#edge detection using canny
+canny = cv2.Canny(gray,100,200)
 
 # find contours
-_, contours = cv2.findContours(binary, 1,2)
+contours, _ = cv2.findContours(canny, 1,2)
 
 # print table of contours and sizes
 print("Found %d objects." % len(contours))
@@ -23,5 +23,5 @@ if length > 0:
 
 # display original image with contours
 cv2.namedWindow("output", cv2.WINDOW_NORMAL)
-cv2.imshow("output", binary)
+cv2.imshow("output", img)
 cv2.waitKey(0)
